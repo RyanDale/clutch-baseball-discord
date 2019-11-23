@@ -18,6 +18,7 @@ class FindCommand extends Commando.Command {
 	}
 
 	async run(message, searchText) {
+		console.log('run', searchText);
 		const cardUrl = getCardUrl(searchText);
 		try {
 			await axios.get(cardUrl);
