@@ -13,12 +13,12 @@ class FindCommand extends Commando.Command {
 			name: 'find',
 			group: 'general',
 			memberName: 'clutchbaseball',
-			description: 'Finds Clutch Baseball cards.'
+			description: 'Finds Clutch Baseball cards.',
+			aliases: ['f']
 		});
 	}
 
 	async run(message, searchText) {
-		console.log('run', searchText);
 		const cardUrl = getCardUrl(searchText);
 		try {
 			await axios.get(cardUrl);
