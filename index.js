@@ -1,3 +1,5 @@
+console.log('Init Clutch Baseball Bot')
+
 require('dotenv').config();
 
 const Commando = require('discord.js-commando');
