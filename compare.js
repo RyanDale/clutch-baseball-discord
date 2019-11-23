@@ -6,7 +6,6 @@ function getCardUrl(searchText) {
 	const fileName = searchText.replace(/[^a-z0-9+]+/gi, '').toLowerCase();
 	return `${process.env.CARDS_URL}/${fileName}.png`;
 }
-
 class CompareCommand extends Commando.Command {
 	constructor(client) {
 		super(client, {
