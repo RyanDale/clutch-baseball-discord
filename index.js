@@ -1,12 +1,10 @@
-console.log('Init Clutch Baseball Bot')
-
 require('dotenv').config();
 
 const Commando = require('discord.js-commando');
 const Mixpanel = require('mixpanel');
 const path = require('path');
 
-const client = new Commando.Client();
+const client = new Commando.Client({ commandPrefix: '/' });
 
 global.mixpanel = Mixpanel.init(process.env.MIXPANEL_TOKEN);
 
