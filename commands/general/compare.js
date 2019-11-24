@@ -2,7 +2,7 @@ const axios = require('axios');
 const Canvas = require('canvas');
 const Commando = require('discord.js-commando');
 const Discord = require('discord.js');
-const { getCardUrl } = require('../../functions');
+const { getCardUrl } = require('../../utils');
 
 class CompareCommand extends Commando.Command {
 	constructor(client) {

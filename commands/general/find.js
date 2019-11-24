@@ -1,6 +1,6 @@
 const axios = require('axios');
 const Commando = require('discord.js-commando');
-const { getCardUrl } = require('../../functions');
+const { getCardFromSearch } = require('../../utils');
 
 class FindCommand extends Commando.Command {
 	constructor(client) {
@@ -14,9 +14,8 @@ class FindCommand extends Commando.Command {
 	}
 
 	async run(message, searchText) {
-		const cardUrl = getCardUrl(searchText);
-		try {
-			await axios.get(cardUrl);
+		const cardUrl = getCardFromSearch(searchText);
+		if (cardUrl) {
 			message.channel.send(searchText, {
 				files: [ cardUrl ]
 			});
@@ -28,7 +27,7 @@ class FindCommand extends Commando.Command {
 				distinct_id: message.author.id,
 				app: 'discord'
 			});
-		} catch (error) {
+		} else {
 			global.mixpanel.track('findCard', {
 				fileName: searchText,
 				success: false,
