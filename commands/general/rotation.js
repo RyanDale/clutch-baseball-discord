@@ -36,6 +36,13 @@ class RotationCommand extends Commando.Command {
 			cardImage = await Canvas.loadImage(playerUrls[i].url);
 			ctx.drawImage(cardImage, i * CARD_WIDTH, 0, CARD_WIDTH, CARD_HEIGHT);
 		}
+		global.mixpanel.track('rotation', {
+			players: players.join(', '),
+			success: true,
+			username: message.author.username,
+			distinct_id: message.author.id,
+			app: 'discord'
+		});
 		message.channel.send(new Discord.Attachment(canvas.toBuffer(), 'rotation.png') );
 	}
 }
