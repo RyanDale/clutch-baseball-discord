@@ -1,5 +1,7 @@
 const axios = require('axios');
+const Canvas = require('canvas');
 const Commando = require('discord.js-commando');
+const Discord = require('discord.js');
 
 // TODO: Move this to a service
 function getCardUrl(searchText) {
