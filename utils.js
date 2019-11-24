@@ -1,16 +1,18 @@
+const axios = require('axios');
+
 function getCardUrl(searchText) {
 	const fileName = searchText.replace(/[^a-z0-9+]+/gi, '').toLowerCase();
-	return `${process.env.CARDS_URL}/${fileName}.png`;
+    return `${process.env.CARDS_URL}/${fileName}.png`;
 }
 
-function getCardFromSearch(searchText) {
+async function getCardFromSearch(searchText) {
     const cardUrl = getCardUrl(searchText);
     try {
         await axios.get(cardUrl);
-        return cardUrl;
     } catch (error) {
         return '';
     }
+    return cardUrl;
 }
 
 const CARD_WIDTH = 750;

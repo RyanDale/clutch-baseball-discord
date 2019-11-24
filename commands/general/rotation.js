@@ -1,44 +1,43 @@
-const axios = require('axios');
 const Canvas = require('canvas');
 const Commando = require('discord.js-commando');
 const Discord = require('discord.js');
-const { Client, MessageAttachment } = require('discord.js');
+const { getCardFromSearch, CARD_HEIGHT, CARD_WIDTH } = require('../../utils');
 
-// TODO: Move this to a service
-function getCardUrl(searchText) {
-	const fileName = searchText.replace(/[^a-z0-9+]+/gi, '').toLowerCase();
-	return `${process.env.CARDS_URL}/${fileName}.png`;
-}
-
-class FindCommand extends Commando.Command {
+class RotationCommand extends Commando.Command {
 	constructor(client) {
 		super(client, {
-			name: 'find2',
+			name: 'rotation',
 			group: 'general',
-			memberName: 'find2',
-			description: 'Finds Clutch Baseball cards.',
-			aliases: ['ff']
+			memberName: 'rotation',
+			description: 'Builds a rotation out of 5 cards',
+			aliases: ['rot', '5man', '5']
 		});
 	}
 
 	async run(message, searchText) {
-		const canvas = Canvas.createCanvas(700, 250);
-		const ctx = canvas.getContext('2d');
-	
-		// Since the image takes time to load, you should await it
-		const background = await Canvas.loadImage('https://cards.clutchbaseball.com/17toronotocentre.png');
-		// This uses the canvas dimensions to stretch the image onto the entire canvas
-		ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-		// Use helpful Attachment class structure to process the file for you
-		let attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'welcome-image.png');
+		const players = searchText.split('&');
+		if (players.length !== 5) {
+			return message.reply('Expected 5 players, instead got ' + players.length);
+		}
+		const playerUrls = await Promise.all(players.map(async (player) => ({
+			searchText: player,
+			url: await getCardFromSearch(player)
+		})));
 
-		console.log('m', attachment);
-		//return message.channel.send(`Welcome to the server, user!`, attachment);
-		//attachment = new MessageAttachment('https://cards.clutchbaseball.com/17toronotocentre.png');
-		
-		// Send the attachment in the message channel
-		message.channel.send('memo', attachment);
+		const notFound = playerUrls.find(player => !player.url);
+		if (notFound) {
+			return message.reply(notFound.searchText + ' not found!');
+		}
+
+		const canvas = Canvas.createCanvas(CARD_WIDTH * 5, CARD_HEIGHT);
+		const ctx = canvas.getContext('2d');
+		let cardImage;
+		for (let i = 0; i < playerUrls.length; i++) {
+			cardImage = await Canvas.loadImage(playerUrls[i].url);
+			ctx.drawImage(cardImage, i * CARD_WIDTH, 0, CARD_WIDTH, CARD_HEIGHT);
+		}
+		message.channel.send(new Discord.Attachment(canvas.toBuffer(), 'rotation.png') );
 	}
 }
 
-module.exports = FindCommand;
+module.exports = RotationCommand;

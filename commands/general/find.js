@@ -1,4 +1,3 @@
-const axios = require('axios');
 const Commando = require('discord.js-commando');
 const { getCardFromSearch } = require('../../utils');
 
