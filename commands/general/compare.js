@@ -60,12 +60,12 @@ class CompareCommand extends Commando.Command {
 
 		const canvas = Canvas.createCanvas(750 * 3, 1050);
 		const ctx = canvas.getContext('2d');
-		const player1 = await Canvas.loadImage(card1Url);
-		const player2 = await Canvas.loadImage(card2Url);
+		const player1Image = await Canvas.loadImage(card1Url);
+		const player2Image = await Canvas.loadImage(card2Url);
 		const background = await Canvas.loadImage('./assets/vs.png');
-		ctx.drawImage(player1, 0, 0, 750, 1050);
+		ctx.drawImage(player1Image, 0, 0, 750, 1050);
 		ctx.drawImage(background, 750, 0, 750, 1050);
-		ctx.drawImage(player2, 750*2, 0, 750, 1050);
+		ctx.drawImage(player2Image, 750*2, 0, 750, 1050);
 		message.channel.send(new Discord.Attachment(canvas.toBuffer(), 'compare.png') ).catch(console.error);
 	}
 }
