@@ -13,7 +13,7 @@ class FindCommand extends Commando.Command {
 	}
 
 	async run(message, searchText) {
-		const cardUrl = getCardFromSearch(searchText);
+		const cardUrl = await getCardFromSearch(searchText);
 		if (cardUrl) {
 			message.channel.send(searchText, {
 				files: [ cardUrl ]
