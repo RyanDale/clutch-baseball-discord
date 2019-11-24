@@ -8,7 +8,7 @@ class FindCommand extends Commando.Command {
 			group: 'general',
 			memberName: 'clutchbaseball',
 			description: 'Finds Clutch Baseball cards.',
-			aliases: ['f']
+			aliases: ['f', '1man', '1']
 		});
 	}
 
