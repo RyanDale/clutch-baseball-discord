@@ -2,12 +2,7 @@ const axios = require('axios');
 const Canvas = require('canvas');
 const Commando = require('discord.js-commando');
 const Discord = require('discord.js');
-
-// TODO: Move this to a service
-function getCardUrl(searchText) {
-	const fileName = searchText.replace(/[^a-z0-9+]+/gi, '').toLowerCase();
-	return `${process.env.CARDS_URL}/${fileName}.png`;
-}
+const { getCardUrl } = require('../../functions');
 
 class CompareCommand extends Commando.Command {
 	constructor(client) {
