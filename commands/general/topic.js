@@ -18,11 +18,23 @@ class TopicCommand extends Commando.Command {
 					searchText = '';
 				}
 				await message.channel.setTopic(searchText);
+				global.mixpanel.track('set topic', {
+					success: true,
+					username: message.author.username,
+					distinct_id: message.author.id,
+					app: 'discord'
+				});
 				return message.reply(searchText ? 'Topic set to: ' + searchText : 'Topic cleared.');
 			} catch (error) {
 				return message.reply('Topic could not be set.');			
 			}
 		} else {
+			global.mixpanel.track('get topic', {
+				success: true,
+				username: message.author.username,
+				distinct_id: message.author.id,
+				app: 'discord'
+			});
 			return message.reply(message.channel.topic || 'No topic set!');
 		}
 	}
