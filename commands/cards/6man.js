@@ -7,7 +7,7 @@ class SixManCommand extends Commando.Command {
 	constructor(client) {
 		super(client, {
 			name: '6man',
-			group: 'general',
+			group: 'cards',
 			memberName: '6man',
 			description: 'Builds a set out of 6 cards',
 			aliases: ['6']

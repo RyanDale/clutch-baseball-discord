@@ -5,7 +5,7 @@ class FindCommand extends Commando.Command {
 	constructor(client) {
 		super(client, {
 			name: 'find',
-			group: 'general',
+			group: 'cards',
 			memberName: 'clutchbaseball',
 			description: 'Finds Clutch Baseball cards.',
 			aliases: ['f', '1man', '1']

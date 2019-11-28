@@ -10,7 +10,8 @@ global.mixpanel = Mixpanel.init(process.env.MIXPANEL_TOKEN);
 
 client.registry
     .registerGroups([
-        ['general', 'General']
+        ['general', 'General'],
+        ['cards', 'Cards']
     ])
     .registerDefaults()
     .registerCommandsIn(path.join(__dirname, 'commands'));

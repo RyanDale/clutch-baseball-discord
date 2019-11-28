@@ -3,21 +3,21 @@ const Commando = require('discord.js-commando');
 const Discord = require('discord.js');
 const { getCardFromSearch, CARD_HEIGHT, CARD_WIDTH } = require('../../utils');
 
-class SevenManCommand extends Commando.Command {
+class ThreeManCommand extends Commando.Command {
 	constructor(client) {
 		super(client, {
-			name: '7man',
-			group: 'general',
-			memberName: '7man',
-			description: 'Builds a set out of 7 cards',
-			aliases: ['7']
+			name: '3man',
+			group: 'cards',
+			memberName: '3man',
+			description: 'Builds a set out of 3 cards',
+			aliases: ['3']
 		});
 	}
 
 	async run(message, searchText) {
 		const players = searchText.split('&');
-		if (players.length !== 7) {
-			return message.reply('Expected 7 players, instead got ' + players.length);
+		if (players.length !== 3) {
+			return message.reply('Expected 3 players, instead got ' + players.length);
 		}
 		const playerUrls = await Promise.all(players.map(async (player) => ({
 			searchText: player,
@@ -29,7 +29,7 @@ class SevenManCommand extends Commando.Command {
 			return message.reply(notFound.searchText + ' not found!');
 		}
 
-		const canvas = Canvas.createCanvas(CARD_WIDTH * 4, CARD_HEIGHT * 2);
+		const canvas = Canvas.createCanvas(CARD_WIDTH * 3, CARD_HEIGHT * 1);
 		const ctx = canvas.getContext('2d');
 		let cardImage;
 		let verticalPosition;
@@ -38,15 +38,15 @@ class SevenManCommand extends Commando.Command {
 			verticalPosition = Math.floor(i / 4) * CARD_HEIGHT;
 			ctx.drawImage(cardImage, (i % 4) * CARD_WIDTH, verticalPosition, CARD_WIDTH, CARD_HEIGHT);
 		}
-		global.mixpanel.track('7man', {
+		global.mixpanel.track('3man', {
 			players: players.join(', '),
 			success: true,
 			username: message.author.username,
 			distinct_id: message.author.id,
 			app: 'discord'
 		});
-		message.channel.send(new Discord.Attachment(canvas.toBuffer(), '7man.png') );
+		message.channel.send(new Discord.Attachment(canvas.toBuffer(), '3man.png') );
 	}
 }
 
-module.exports = SevenManCommand;
+module.exports = ThreeManCommand;

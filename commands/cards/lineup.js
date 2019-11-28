@@ -7,7 +7,7 @@ class LineupCommand extends Commando.Command {
 	constructor(client) {
 		super(client, {
 			name: 'lineup',
-			group: 'general',
+			group: 'cards',
 			memberName: 'lineup',
 			description: 'Builds a lineup out of 9 cards',
 			aliases: ['9man', '9']

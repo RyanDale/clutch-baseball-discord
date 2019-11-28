@@ -4,7 +4,7 @@ class RollCommand extends Commando.Command {
 	constructor(client) {
 		super(client, {
 			name: 'roll',
-			group: 'general',
+			group: 'cards',
 			memberName: 'roll',
 			description: 'Roll die. Example: /r d20 + 4 rolls a random number between 1 and 20 and adds 4',
 			aliases: ['r']
