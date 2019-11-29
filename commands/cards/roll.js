@@ -17,7 +17,7 @@ class RollCommand extends Commando.Command {
 		const dieRoll = Math.floor(Math.random() * parseInt(roll.replace(/[^0-9]/gi, ''), 10)) + 1;
 		const extraResult = eval(operator + extra) || 0;
 		const result = dieRoll + extraResult;
-		const output = operator ? `rolled a ${dieRoll} ${operator}${extra} = ${result}` : `rolled a ${dieRoll}`;
+		const output = operator ? `rolled a **${dieRoll}** ${operator}${extra} = ${result}` : `rolled a ${dieRoll}`;
 		return message.reply(output);
 	}
 }
