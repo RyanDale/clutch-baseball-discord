@@ -38,7 +38,7 @@ class SixManCommand extends Commando.Command {
 			verticalPosition = Math.floor(i / 3) * CARD_HEIGHT;
 			ctx.drawImage(cardImage, (i % 3) * CARD_WIDTH, verticalPosition, CARD_WIDTH, CARD_HEIGHT);
 		}
-		global.mixpanel.track('s', {
+		global.mixpanel.track('6man', {
 			players: players.join(', '),
 			success: true,
 			username: message.author.username,
