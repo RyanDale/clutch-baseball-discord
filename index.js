@@ -4,7 +4,10 @@ const Commando = require('discord.js-commando');
 const Mixpanel = require('mixpanel');
 const path = require('path');
 
-const client = new Commando.Client({ commandPrefix: '/' });
+const client = new Commando.Client({
+    commandPrefix: '/',
+    unknownCommandResponse: false
+});
 
 global.mixpanel = Mixpanel.init(process.env.MIXPANEL_TOKEN);
 
